@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Homepage</title>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <div>
+            <% messages.forEach((message) => { %>
+            <div class="message">
+                <p>From: <%= message.user %></p>
+                <p>At: <%= message.added %></p>
+                <p>
+                    Click
+                    <a href="./messages/<%= messages.indexOf(message) + 1 %>"
+                        >here</a
+                    >
+                    to view their message
+                </p>
+            </div>
+            <% }); %>
+        </div>
+        <a class="button" href="/new">Click here to create a new message</a>
+    </body>
+</html>

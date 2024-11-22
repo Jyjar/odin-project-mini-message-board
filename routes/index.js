@@ -20,7 +20,6 @@ indexRouter.get("/", (req, res) => {
 
 indexRouter.get("/messages/:index", (req, res) => {
     const { index } = req.params;
-    console.log(messages[index - 1])
     res.render("message", { message: messages[index - 1] });
 });
 

@@ -1,20 +1,9 @@
 const express = require("express");
 const indexRouter = express.Router();
+const { getAllMessages } = require("../queries");
 
-const messages = [
-    {
-        text: "Hi there!",
-        user: "Amando",
-        added: new Date(),
-    },
-    {
-        text: "Hello World!",
-        user: "Charles",
-        added: new Date(),
-    },
-];
-
-indexRouter.get("/", (req, res) => {
+indexRouter.get("/", async (req, res) => {
+    const messages = await getAllMessages();
     res.render("index", { title: "Mini Messageboard", messages: messages });
 });
 
@@ -23,4 +12,4 @@ indexRouter.get("/messages/:index", (req, res) => {
     res.render("message", { message: messages[index - 1] });
 });
 
-module.exports = { messages, indexRouter };
+module.exports = { indexRouter };

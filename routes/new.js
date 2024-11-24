@@ -1,16 +1,17 @@
 const express = require("express");
 const newMessageRouter = express.Router();
-const { messages } = require("./index");
+const { insertMessage } = require("../queries");
 
 newMessageRouter.get("/", (req, res) => res.render("new"));
 
-newMessageRouter.post("/", (req, res) => {
-    messages.push({
-        text: req.body.message,
-        user: req.body.name,
-        added: new Date(),
-    });
+newMessageRouter.post("/", async (req, res) => {
+    const { message } = req.body;
+    if (message && message.trim()) {
+        await insertMessage(message.trim());
+    }
     res.redirect("/");
 });
 
-module.exports = { newMessageRouter };
+module.exports = {
+    newMessageRouter: router
+};

@@ -13,5 +13,5 @@ newMessageRouter.post("/", async (req, res) => {
 });
 
 module.exports = {
-    newMessageRouter: router
+    newMessageRouter: newMessageRouter
 };

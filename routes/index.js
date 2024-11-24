@@ -1,6 +1,6 @@
 const express = require("express");
 const indexRouter = express.Router();
-const { getAllMessages } = require("../queries");
+const { getAllMessages } = require("../db/queries");
 
 indexRouter.get("/", async (req, res) => {
     const messages = await getAllMessages();

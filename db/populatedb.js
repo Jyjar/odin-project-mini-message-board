@@ -1,17 +1,22 @@
 require('dotenv').config(); // Load environment variables from .env
 const { Client } = require("pg");
 
+// SQL to create and populate the messages table
 const SQL = `
+DROP TABLE IF EXISTS messages;
 CREATE TABLE IF NOT EXISTS messages (
-  id SERIAL PRIMARY KEY, -- SERIAL is shorthand for auto-increment
-  message VARCHAR(255) NOT NULL
+  id SERIAL PRIMARY KEY,            -- Auto-incrementing primary key
+  text VARCHAR(255) NOT NULL,       -- Message text
+  "user" VARCHAR(50) NOT NULL,      -- User who added the message (quoted to avoid conflict with reserved keyword)
+  added TIMESTAMP DEFAULT NOW()     -- Timestamp when the message was added
 );
 
-INSERT INTO messages (message) 
+INSERT INTO messages (text, "user") 
 VALUES
-    ('Hello, World!'),
-    ('Welcome to the message board.'),
-    ('PostgreSQL rocks!');
+    ('Hello, World!', 'Alice'),
+    ('Welcome to the message board.', 'Bob'),
+    ('PostgreSQL rocks!', 'Charlie')
+ON CONFLICT DO NOTHING;             -- Avoid duplicate entries if this script is run multiple times
 `;
 
 async function main() {

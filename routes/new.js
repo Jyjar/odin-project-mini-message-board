@@ -1,6 +1,6 @@
 const express = require("express");
 const newMessageRouter = express.Router();
-const { insertMessage } = require("../queries");
+const { insertMessage } = require("../db/queries");
 
 newMessageRouter.get("/", (req, res) => res.render("new"));
 
